@@ -52,7 +52,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
       sessionId = crypto.randomUUID()
       reply.setCookie('sessionId', sessionId, {
         path: '/',
-        maxAge: 100 * 60 * 60 * 24 * 7, //7 days
+        maxAge: 60 * 60 * 24 * 7, //7 days
       })
     }  
 

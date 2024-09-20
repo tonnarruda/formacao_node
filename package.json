@@ -1,0 +1,32 @@
+{
+  "name": "formacao_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "knex": "node ./node_modules/knex/bin/cli.js",
+    "lint": "npx eslint .ts src --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cookie": "^10.0.0",
+    "chancejs": "^0.0.4",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.0.0",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@types/node": "^22.5.5",
+    "eslint": "^9.10.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

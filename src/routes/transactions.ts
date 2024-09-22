@@ -35,11 +35,11 @@ export async function transactionsRoutes(app: FastifyInstance) {
         const { id } = getTransactionByIdParamsSchema.parse(request.params)
 
         const transactions = await knex('transactions')
-        .where({
-            session_id: sessionId,
-            id,
-        })
-        .first()
+            .where({
+                session_id: sessionId,
+                id,
+            })
+            .first()
 
         return reply.status(200).send({
             transactions
@@ -48,7 +48,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     app.get('/summary', {
         preHandler: [checkSessionIdExists],
-      }, async (request) => {
+    }, async (request) => {
 
         const { sessionId } = request.cookies
 
@@ -82,14 +82,17 @@ export async function transactionsRoutes(app: FastifyInstance) {
             })
         }
 
-        await knex('transactions')
+        const [transaction] = await knex('transactions')
             .insert({
                 id: crypto.randomUUID(),
                 title,
                 amount: type === 'credit' ? amount : amount * -1,
                 session_id: sessionId,
             })
+            .returning(['id', 'title', 'amount', 'created_at', 'session_id']); // Retorna o registro inserido
 
-        return reply.status(201).send();
+        return reply.status(201).send({
+            transactions: transaction, // Retorna o objeto recém-criado
+        });
     });
 }
